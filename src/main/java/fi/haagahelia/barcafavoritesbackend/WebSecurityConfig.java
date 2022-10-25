@@ -22,8 +22,9 @@ public class WebSecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**").permitAll()
 				.anyRequest().authenticated().and().csrf().ignoringAntMatchers("/h2-console/**").and().headers()
-				.frameOptions().sameOrigin().and().formLogin().defaultSuccessUrl("/test", true).permitAll().and()
+				.frameOptions().sameOrigin().and().formLogin().defaultSuccessUrl("/api/test", true).permitAll().and()
 				.logout().permitAll().and().httpBasic();
+		http.cors();
 		return http.build();
 	}
 

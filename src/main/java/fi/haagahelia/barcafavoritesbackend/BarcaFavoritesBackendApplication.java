@@ -5,6 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import fi.haagahelia.barcafavoritesbackend.domain.Nationality;
 import fi.haagahelia.barcafavoritesbackend.domain.NationalityRepo;
@@ -81,6 +84,17 @@ public class BarcaFavoritesBackendApplication {
 			log.info("Fetch all players");
 			for (Player player : playerRepo.findAll()) {
 				log.info(player.toString());
+			}
+		};
+	}
+
+	@Bean
+	public WebMvcConfigurer configur() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry reg) {
+				reg.addMapping("/**").allowedMethods(CorsConfiguration.ALL).allowedHeaders(CorsConfiguration.ALL)
+						.allowedOriginPatterns(CorsConfiguration.ALL);
 			}
 		};
 	}
