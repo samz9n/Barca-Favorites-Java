@@ -48,6 +48,14 @@ public class Player {
 		this.nationality = nationality;
 	}
 
+	public Long getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(Long playerId) {
+		this.playerId = playerId;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
