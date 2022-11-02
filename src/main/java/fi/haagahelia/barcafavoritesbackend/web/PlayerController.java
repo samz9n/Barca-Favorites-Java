@@ -4,8 +4,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,13 +42,12 @@ public class PlayerController {
 	@PostMapping("/player/new")
 	public @ResponseBody Player newPlayer(@RequestBody Player player) throws URISyntaxException {
 		return playerRepo.save(player);
-//		return ResponseEntity.created(new URI("/players/" + player.getPlayerId())).body(player);
 	}
 
 	// UPDATE/EDIT PLAYER
 	@PutMapping("/player/{id}")
-	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
+	// @PreAuthorize("hasAuthority('ADMIN')")
+	public @ResponseBody Player updatePlayer(@PathVariable Long id, @RequestBody Player player) {
 		Player currentPlayer = playerRepo.findById(id).orElseThrow(RuntimeException::new);
 		currentPlayer.setFirstName(player.getFirstName());
 		currentPlayer.setLastName(player.getLastName());
@@ -58,14 +55,13 @@ public class PlayerController {
 		currentPlayer.setAge(player.getAge());
 		currentPlayer.setShirtNumber(player.getShirtNumber());
 		currentPlayer.setNationality(player.getNationality());
-		currentPlayer = playerRepo.save(player);
 
-		return ResponseEntity.ok(currentPlayer);
+		return playerRepo.save(currentPlayer);
 	}
 
 	// DELETE PLAYER
 	@DeleteMapping("/player/{id}")
-	@PreAuthorize("hasAuthority('ADMIN')")
+	// @PreAuthorize("hasAuthority('ADMIN')")
 	public void deletePlayer(@PathVariable Long id) {
 		playerRepo.deleteById(id);
 	}
