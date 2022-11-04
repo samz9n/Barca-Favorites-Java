@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>edit player</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+	<h1 style="display:flex; justify-content:center;">Edit player</h1>
+	<div class="form-group" style="display:flex; justify-content:center;">
+		<form style="display:flex; flex-direction: column; width: 500px" th:object="${player}" th:action="@{/player/save}" action='#' method="post">
+			<label for="firstname">Firstname</label> 
+			<input type="hidden" th:field="*{playerId}" /> 
+			<input type="text" th:name="${firstName}" th:field="*{firstName}" />
+			<label for="title">Lastname</label>
+			<input type="text" th:name="${lastName}" th:field="*{lastName}" />
+			<label for="lastname">Position</label>
+			 <select id="nmbr" th:field="*{position}" class="form-select">
+       			<option th:value="defender" th:text="defender"></option>
+       			<option th:value="midfielder" th:text="midfielder"></option>
+       			<option th:value="forward" th:text="forward"></option>
+    		</select>
+			<label for="age">Age</label>
+			<input type="text" th:name="${age}" th:field="*{age}" />
+			<label for="shirtnumber">Shirtnumber</label>
+			<input type="text" th:name="${shirtNumber}" th:field="*{shirtNumber}" />
+<!-- 			seuraava antoi errorin: org.hibernate.TransientPropertyValueException -->
+<!-- 			<label for="nationality">Nationality</label> -->
+<!-- 			<input type="text" th:name="${nationality}" th:field="*{nationality.name}" /> -->
+			<br />
+			<input style="width:80px" type="submit" value="Update" />
+		</form>
+	</div>
+</body>
+</html>
