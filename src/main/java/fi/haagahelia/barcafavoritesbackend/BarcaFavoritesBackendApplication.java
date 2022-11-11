@@ -71,28 +71,21 @@ public class BarcaFavoritesBackendApplication {
 			playerRepo.save(new Player("Riqui", "Puig", "midfielder", 23, 6, spain));
 			playerRepo.save(new Player("Franck", "Kessie", "midfielder", 25, 19, ivorycoast));
 
-			User guest = new User("user", "$2a$10$g.ZCRog6ISBv7mL.SsoIVe1hL0VjtBW/GkDMV/DizZrX.8jbmjNTa",
+			User user = new User("user", "$2a$10$g.ZCRog6ISBv7mL.SsoIVe1hL0VjtBW/GkDMV/DizZrX.8jbmjNTa",
 					"user.test@email.com", "USER");
 			User admin = new User("admin", "$2a$10$x1ROXKyHM0x.5IKb3qHeOusgPHqnkK3uYU./6mAJ4rCbinmOalYdS",
 					"admin.test@email.com", "ADMIN");
-			userRepo.save(guest);
+			userRepo.save(user);
 			userRepo.save(admin);
 
 			log.info("Fetch all players");
 			for (Player player : playerRepo.findAll()) {
 				log.info(player.toString());
 			}
+			log.info("Fetch all users");
+			for (User usr : userRepo.findAll()) {
+				log.info(usr.toString());
+			}
 		};
 	}
-
-//	@Bean
-//	public WebMvcConfigurer configur() {
-//		return new WebMvcConfigurer() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry reg) {
-//				reg.addMapping("/**").allowedMethods(CorsConfiguration.ALL).allowedHeaders(CorsConfiguration.ALL)
-//						.allowedOriginPatterns(CorsConfiguration.ALL);
-//			}
-//		};
-//	}
 }

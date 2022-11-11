@@ -24,13 +24,25 @@ public class WebSecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+//	@Bean
+//	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+//		http.csrf().disable().authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**")
+//				.permitAll().antMatchers(HttpMethod.POST, "/api/player/new").permitAll().antMatchers("/api/player/**")
+//				.permitAll().anyRequest().authenticated().and().headers().frameOptions().sameOrigin().and().formLogin()
+//				.defaultSuccessUrl("http://localhost:3000/players", true).permitAll().and().logout().permitAll().and()
+//				.httpBasic().and().cors();
+//		return http.build();
+//	}
+
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**")
-				.permitAll().antMatchers(HttpMethod.POST, "/api/player/new").permitAll().antMatchers("/api/player/**")
-				.permitAll().anyRequest().authenticated().and().headers().frameOptions().sameOrigin().and().formLogin()
-				.defaultSuccessUrl("http://localhost:3000", true).permitAll().and().logout().permitAll().and()
-				.httpBasic().and().cors();
+		http.authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/player/new").permitAll().antMatchers("/api/player/**").permitAll()
+				.antMatchers("/api/currentuser").permitAll().anyRequest().authenticated().and().csrf()
+				.ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin().and().formLogin()
+				.defaultSuccessUrl("http://localhost:3000/players", true).permitAll().and().logout()
+				.clearAuthentication(true).deleteCookies("JSESSIONID").invalidateHttpSession(true).and().httpBasic()
+				.and().cors();
 		return http.build();
 	}
 

@@ -1,6 +1,8 @@
 package fi.haagahelia.barcafavoritesbackend.web;
 
 import java.net.URISyntaxException;
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,16 @@ public class PlayerRestController {
 	// @PreAuthorize("hasAuthority('ADMIN')")
 	public void deletePlayer(@PathVariable Long id) {
 		playerRepo.deleteById(id);
+	}
+
+//	 GET LOGGED IN USER
+//	 MADE A JSON OBJECT WITH HASHMAP, SO FETCHING WORKS
+	@GetMapping("/currentusername")
+	public HashMap<String, String> currentUserName(Principal principal) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("name", principal.getName());
+
+		return map;
 	}
 
 }
