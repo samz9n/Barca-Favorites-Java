@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -16,10 +19,16 @@ public class Player {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long playerId;
+	@NotBlank
 	private String firstName;
+	@NotBlank
 	private String lastName;
+	@NotBlank
 	private String position;
+	@NotNull
 	private Integer age;
+	@NotNull
+	@Min(1)
 	private Integer shirtNumber;
 
 	@ManyToOne

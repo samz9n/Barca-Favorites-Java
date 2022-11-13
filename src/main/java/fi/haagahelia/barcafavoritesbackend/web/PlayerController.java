@@ -1,18 +1,22 @@
 package fi.haagahelia.barcafavoritesbackend.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import fi.haagahelia.barcafavoritesbackend.domain.NationalityRepo;
 import fi.haagahelia.barcafavoritesbackend.domain.Player;
 import fi.haagahelia.barcafavoritesbackend.domain.PlayerRepo;
 
 @Controller
-public class PlayerController {
+public class PlayerController implements WebMvcConfigurer {
 	@Autowired
 	PlayerRepo playerRepo;
 	@Autowired
@@ -20,7 +24,20 @@ public class PlayerController {
 
 	// SAVE player (for edit)
 	@PostMapping(value = "/player/save")
-	public String save(Player player) {
+	public String save(@Valid Player player, BindingResult bindingRes) {
+		if (bindingRes.hasErrors()) {
+			return "editplayer";
+		}
+		playerRepo.save(player);
+		return "redirect:http://localhost:3000/players";
+	}
+
+	// SAVE NEW player (for adding new player)
+	@PostMapping(value = "/player/saveNew")
+	public String saveNew(@Valid Player player, BindingResult bindingRes) {
+		if (bindingRes.hasErrors()) {
+			return "addplayer";
+		}
 		playerRepo.save(player);
 		return "redirect:http://localhost:3000/players";
 	}

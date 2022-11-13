@@ -13,18 +13,24 @@
 			<label for="firstname">Firstname</label> 
 			<input type="hidden" th:field="*{playerId}" /> 
 			<input type="text" th:name="${firstName}" th:field="*{firstName}" />
+			<p style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Firstname Error</p>
 			<label for="title">Lastname</label>
 			<input type="text" th:name="${lastName}" th:field="*{lastName}" />
+			<p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Lastname Error</p>
 			<label for="lastname">Position</label>
 			 <select id="nmbr" th:field="*{position}" class="form-select">
-       			<option th:value="defender" th:text="defender"></option>
+			 	<option th:value="defender" th:text="defender"></option>
+			 	<option th:value="goalkeeper" th:text="goalkeeper"></option>
        			<option th:value="midfielder" th:text="midfielder"></option>
        			<option th:value="forward" th:text="forward"></option>
     		</select>
+    		<p style="color: red" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Position Error</p>		
 			<label for="age">Age</label>
-			<input type="text" th:name="${age}" th:field="*{age}" />
+			<input type="number" th:name="${age}" th:field="*{age}" />
+			<p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</p>
 			<label for="shirtnumber">Shirtnumber</label>
-			<input type="text" th:name="${shirtNumber}" th:field="*{shirtNumber}" />
+			<input type="number" th:name="${shirtNumber}" th:field="*{shirtNumber}" />
+			<p style="color: red" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnumber Error</p>
 <!-- 			seuraava antoi errorin: org.hibernate.TransientPropertyValueException -->
 <!-- 			<label for="nationality">Nationality</label> -->
 <!-- 			<input type="text" th:name="${nationality}" th:field="*{nationality.name}" /> -->

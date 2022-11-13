@@ -9,22 +9,28 @@
 <body>
 	<h1 style="display:flex; justify-content:center;">Add player</h1>
 	<div class="form-group" style="display:flex; justify-content:center;">
-		<form style="display:flex; flex-direction: column; width: 500px" th:object="${player}" th:action="@{/player/save}" action='#' method="post">
+		<form style="display:flex; flex-direction: column; width: 500px" th:object="${player}" th:action="@{/player/saveNew}" action='#' method="post">
 			<label for="firstname">Firstname</label> 
 			<input type="hidden" th:field="*{playerId}" /> 
 			<input type="text" th:name="${firstName}" th:field="*{firstName}" />
+			<p style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Firstname Error</p>
 			<label for="title">Lastname</label>
 			<input type="text" th:name="${lastName}" th:field="*{lastName}" />
+			<p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Lastname Error</p>
 			<label for="lastname">Position</label>
 			 <select id="nmbr" th:field="*{position}" class="form-select">
-       			<option th:value="defender" th:text="defender"></option>
+			 	<option th:value="defender" th:text="defender"></option>
+			 	<option th:value="goalkeeper" th:text="goalkeeper"></option>
        			<option th:value="midfielder" th:text="midfielder"></option>
        			<option th:value="forward" th:text="forward"></option>
-    		</select>		
+    		</select>
+    		<p style="color: red" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Position Error</p>		
 			<label for="age">Age</label>
 			<input type="number" th:name="${age}" th:field="*{age}" />
+			<p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</p>
 			<label for="shirtnumber">Shirtnumber</label>
 			<input type="number" th:name="${shirtNumber}" th:field="*{shirtNumber}" />
+			<p style="color: red" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnumber Error</p>
 			<label for="natlist">Nationality</label>
 			 <select id="natlist" th:field="*{nationality}" class="form-select">
        			<option th:each="nat: ${nationalities}" th:value="${nat.nationalityId}" th:text="${nat.name}"></option>
