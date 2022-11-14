@@ -30,7 +30,9 @@ public class PlayerController implements WebMvcConfigurer {
 			return "editplayer";
 		}
 		playerRepo.save(player);
-		return "redirect:http://localhost:3000/players";
+//		LOCALHOST
+//		return "redirect:http://localhost:3000/players";
+		return "https://barcafavorites-frontend.herokuapp.com/players";
 	}
 
 	// SAVE NEW player (for adding new player)
@@ -40,8 +42,9 @@ public class PlayerController implements WebMvcConfigurer {
 			model.addAttribute("nationalities", nationalityRepo.findAll());
 			return "addplayer";
 		}
-		playerRepo.save(player);
-		return "redirect:http://localhost:3000/players";
+//		LOCALHOST
+//		return "redirect:http://localhost:3000/players";
+		return "https://barcafavorites-frontend.herokuapp.com/players";
 	}
 
 	// EDIT player view
