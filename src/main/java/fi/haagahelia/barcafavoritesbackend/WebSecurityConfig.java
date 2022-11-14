@@ -1,5 +1,7 @@
 package fi.haagahelia.barcafavoritesbackend;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -25,8 +30,8 @@ public class WebSecurityConfig {
 				.antMatchers("/api/currentusername").permitAll().anyRequest().authenticated().and().headers()
 				.frameOptions().sameOrigin().and().formLogin()
 				.defaultSuccessUrl("https://barcafavorites-frontend.herokuapp.com/players", true).permitAll().and()
-				.logout().clearAuthentication(true).deleteCookies("JSESSIONID").invalidateHttpSession(true).and()
-				.httpBasic();
+				.logout().clearAuthentication(true).deleteCookies("JSESSIONID").invalidateHttpSession(true).and().cors()
+				.and().httpBasic();
 		return http.build();
 	}
 //	LOCALHOST	
@@ -57,15 +62,15 @@ public class WebSecurityConfig {
 //		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //		source.registerCorsConfiguration("/**", configuration);
 //		return source;
-//	@Bean
-//	CorsConfigurationSource corsConfigurationSource() {
-//		CorsConfiguration configuration = new CorsConfiguration();
-//		configuration.setAllowedOrigins(Arrays.asList("https://barcafavorites-frontend.herokuapp.com"));
-//		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
-//		configuration.setAllowCredentials(true);
-//		configuration.addAllowedHeader("*");
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", configuration);
-//		return source;
-//	}
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("https://barcafavorites-frontend.herokuapp.com"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
+		configuration.setAllowCredentials(true);
+		configuration.addAllowedHeader("Authorization");
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }

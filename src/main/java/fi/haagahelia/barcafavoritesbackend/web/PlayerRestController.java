@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import fi.haagahelia.barcafavoritesbackend.domain.Player;
 import fi.haagahelia.barcafavoritesbackend.domain.PlayerRepo;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping(value = "/api/", method = RequestMethod.GET)
 public class PlayerRestController {
 
