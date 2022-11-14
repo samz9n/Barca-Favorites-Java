@@ -24,8 +24,9 @@ public class PlayerController implements WebMvcConfigurer {
 
 	// SAVE player (for edit)
 	@PostMapping(value = "/player/save")
-	public String save(@Valid Player player, BindingResult bindingRes) {
+	public String save(@Valid Player player, BindingResult bindingRes, Model model) {
 		if (bindingRes.hasErrors()) {
+			model.addAttribute("nationalities", nationalityRepo.findAll());
 			return "editplayer";
 		}
 		playerRepo.save(player);
@@ -33,9 +34,10 @@ public class PlayerController implements WebMvcConfigurer {
 	}
 
 	// SAVE NEW player (for adding new player)
-	@PostMapping(value = "/player/saveNew")
-	public String saveNew(@Valid Player player, BindingResult bindingRes) {
+	@PostMapping(value = "/player/add")
+	public String saveNew(@Valid Player player, BindingResult bindingRes, Model model) {
 		if (bindingRes.hasErrors()) {
+			model.addAttribute("nationalities", nationalityRepo.findAll());
 			return "addplayer";
 		}
 		playerRepo.save(player);
@@ -46,6 +48,7 @@ public class PlayerController implements WebMvcConfigurer {
 	@GetMapping(value = "/player/edit/{id}")
 	public String getEditPage(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("player", playerRepo.findById(id));
+		model.addAttribute("nationalities", nationalityRepo.findAll());
 		return "editplayer";
 	}
 

@@ -17,8 +17,8 @@
 			<label for="title">Lastname</label>
 			<input type="text" th:name="${lastName}" th:field="*{lastName}" />
 			<p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Lastname Error</p>
-			<label for="lastname">Position</label>
-			 <select id="nmbr" th:field="*{position}" class="form-select">
+			<label for="position">Position</label>
+			 <select id="position" th:field="*{position}" class="form-select">
 			 	<option th:value="defender" th:text="defender"></option>
 			 	<option th:value="goalkeeper" th:text="goalkeeper"></option>
        			<option th:value="midfielder" th:text="midfielder"></option>
@@ -31,9 +31,10 @@
 			<label for="shirtnumber">Shirtnumber</label>
 			<input type="number" th:name="${shirtNumber}" th:field="*{shirtNumber}" />
 			<p style="color: red" th:if="${#fields.hasErrors('shirtNumber')}" th:errors="*{shirtNumber}">Shirtnumber Error</p>
-<!-- 			seuraava antoi errorin: org.hibernate.TransientPropertyValueException -->
-<!-- 			<label for="nationality">Nationality</label> -->
-<!-- 			<input type="text" th:name="${nationality}" th:field="*{nationality.name}" /> -->
+			<label for="natlist">Nationality</label>
+			<select id="natlist" name="nationalities" th:field="*{nationality}" class="form-select">
+       			<option th:each="nat: ${nationalities}" th:value="${nat.nationalityId}" th:text="${nat.name}"></option>
+    		</select>
 			<br />
 			<input style="width:80px" type="submit" value="Update" />
 		</form>
