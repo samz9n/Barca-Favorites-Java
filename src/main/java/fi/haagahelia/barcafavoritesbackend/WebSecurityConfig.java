@@ -27,11 +27,11 @@ public class WebSecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/css/**").permitAll().antMatchers("/h2-console/**")
 				.permitAll().antMatchers("/player/**").permitAll().antMatchers("/api/player/**").permitAll()
-				.antMatchers("/api/currentuser").permitAll().anyRequest().authenticated().and().headers().frameOptions()
-				.sameOrigin().and().formLogin()
+				.antMatchers("/api/currentusername").permitAll().anyRequest().authenticated().and().headers()
+				.frameOptions().sameOrigin().and().formLogin()
 				.defaultSuccessUrl("https://barcafavorites-frontend.herokuapp.com/players", true).permitAll().and()
 				.logout().clearAuthentication(true).deleteCookies("JSESSIONID").invalidateHttpSession(true).and()
-				.httpBasic().and().cors();
+				.httpBasic();
 		return http.build();
 	}
 //	LOCALHOST	
@@ -66,7 +66,7 @@ public class WebSecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("https://barcafavorites-frontend.herokuapp.com"));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
 		configuration.setAllowCredentials(true);
 		configuration.addAllowedHeader("*");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
