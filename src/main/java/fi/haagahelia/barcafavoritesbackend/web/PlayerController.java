@@ -32,7 +32,7 @@ public class PlayerController implements WebMvcConfigurer {
 		playerRepo.save(player);
 //		LOCALHOST
 //		return "redirect:http://localhost:3000/players";
-		return "https://barcafavorites-frontend.herokuapp.com/players";
+		return "redirect:https://barcafavorites-frontend.herokuapp.com/players";
 	}
 
 	// SAVE NEW player (for adding new player)
@@ -44,7 +44,7 @@ public class PlayerController implements WebMvcConfigurer {
 		}
 //		LOCALHOST
 //		return "redirect:http://localhost:3000/players";
-		return "https://barcafavorites-frontend.herokuapp.com/players";
+		return "redirect:https://barcafavorites-frontend.herokuapp.com/players";
 	}
 
 	// EDIT player view
