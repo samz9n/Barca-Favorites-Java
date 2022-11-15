@@ -42,6 +42,7 @@ public class PlayerController implements WebMvcConfigurer {
 			model.addAttribute("nationalities", nationalityRepo.findAll());
 			return "addplayer";
 		}
+		playerRepo.save(player);
 //		LOCALHOST
 //		return "redirect:http://localhost:3000/players";
 		return "redirect:https://barcafavorites-frontend.herokuapp.com/players";
